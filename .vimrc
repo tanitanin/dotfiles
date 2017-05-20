@@ -15,6 +15,10 @@ endif
 set backupdir=~/.vim/backup
 set directory=~/.vim/backup
 
+augroup MyAutoCmd
+  autocmd!
+augroup END
+
 "Dein Scripts----------------------------------------------------------
 "プラグインが実際にインストールされるディレクトリ
 let s:dein_dir = expand('~/.vim/.cache/dein')

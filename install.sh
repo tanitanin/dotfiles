@@ -64,13 +64,16 @@ dotfiles_os() {
 }
 
 dotfiles_install() {
-	for dot in $copy_dst/.*; do
+	for dot in $copy_dst/.* $copy_dst/$OS/.*; do
 		_name=`basename $dot`
 		[ "$_name" == "." ] && continue
 		[ "$_name" == ".." ] && continue
 		[ "$_name" == ".git" ] && continue
 		[ "$_name" == ".gitignore" ] && continue
-		[ "$_name" == ".gitmodule" ] && continue
+		[ "$_name" == ".gitmodules" ] && continue
+
+		[ "$dot" == "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
+
 		if [ -e ~/$_name ]; then
 			log "move $_name to $copy_dst/backup"
 			mv -f ~/$_name $copy_dst/backup/$_name

@@ -3,3 +3,6 @@
 tmp
 backup
 
+# Submodule
+.vim/bundle/*
+.netrwhist

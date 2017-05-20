@@ -1,0 +1,154 @@
+#------------------------------------------------------------------------------
+
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]] # カーソル位置のコンテキストに合わせてftを切り替える
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+
+[[plugins]] # カーソル位置のコンテキストのftを判定するライブラリ
+repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo =  'Shougo/neocomplete.vim'
+hook_post_update = '''
+  let g:neocomplete#enable_at_startup = 1
+  if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+  endif
+  let g:neocomplete#force_omni_input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+'''
+
+[[plugins]]
+repo =  'Shougo/vimshell.vim'
+rev  =  '3787e5'
+
+[[plugins]]
+repo =  'Shougo/neosnippet.vim'
+hook_post_update = '''
+  imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+  " SuperTab like snippets behavior.
+  imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: pumvisible() ? "\<C-n>" : "\<TAB>"
+  smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+  \ "\<Plug>(neosnippet_expand_or_jump)"
+  \: "\<TAB>"
+  
+  " For snippet_complete marker.
+  if has('conceal')
+    set conceallevel=2 concealcursor=i
+  endif
+'''
+
+[[plugins]]
+repo =  'Shougo/neosnippet-snippets'
+depends = ['neosnippet.vim']
+
+[[plugins]]
+repo =  'Shougo/unite.vim'
+
+[[plugins]]
+repo =  'Shougo/neomru.vim'
+
+[[plugins]]
+repo =  'tpope/vim-fugitive'
+
+[[plugins]]
+repo =  'kien/ctrlp.vim'
+
+[[plugins]]
+repo =  'spolu/dwm.vim'
+
+[[plugins]]
+repo =  'godlygeek/tabular'
+
+[[plugins]]
+repo =  'kannokanno/previm'
+
+[[plugins]]
+repo =  'tyru/open-browser.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+hook_post_update = '''
+  if dein#util#_is_windows()
+    let cmd = 'tools\\update-dll-mingw'
+  elseif dein#util#_is_cygwin()
+    let cmd = 'make -f make_cygwin.mak'
+  elseif executable('gmake')
+    let cmd = 'gmake'
+  else
+    let cmd = 'make'
+  endif
+  let g:dein#plugin.build = cmd
+'''
+
+[[plugins]]
+repo =  'Shougo/vimshell'
+
+[[plugins]]
+repo =  'itchyny/lightline.vim'
+hook_post_update = '''
+  set laststatus=2
+  let g:lightline = {
+        \ 'colorscheme': 'wombat',
+        \ 'mode_map': {'c': 'NORMAL'},
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+        \ },
+        \ 'component_function': {
+        \   'modified': 'MyModified',
+        \   'readonly': 'MyReadonly',
+        \   'fugitive': 'MyFugitive',
+        \   'filename': 'MyFilename',
+        \   'fileformat': 'MyFileformat',
+        \   'filetype': 'MyFiletype',
+        \   'fileencoding': 'MyFileencoding',
+        \   'mode': 'MyMode'
+        \ }
+        \ }
+'''
+
+[[plugins]]
+repo    = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes' # vim-airlineの依存
+
+#------------------------------------------------------------------------------
+
+# カラースキーマ関係
+[[plugins]]
+repo =  'flazz/vim-colorschemes'
+
+[[plugins]]
+repo = 'w0ng/vim-hybrid'
+hook_add = '''
+  set background=dark
+  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
+  " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
+  au MyAutoCmd VimEnter * nested colorscheme hybrid
+'''
+
+#[[plugins]]
+#repo =  'altercation/vim-colors-solarized'
+#hook_post_update = '''
+#  syntax enable
+#  set background=dark
+#  "colorscheme solarized
+#'''
+
+#[[plugins]]
+#repo =  'nanotech/jellybeans.vim'
+#hook_post_update = '''
+#  "syntax enable
+#  "colorscheme jellybeans
+#'''
+
+

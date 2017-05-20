@@ -1,0 +1,40 @@
+#------------------------------------------------------------------------------
+
+[[plugins]]
+repo  = 'derekwyatt/vim-scala'
+on_ft = ['scala']
+
+[[plugins]]
+repo  = 'kchmck/vim-coffee-script'
+on_ft = ['coffeescript']
+
+[[plugins]]
+repo  = 'plasticboy/vim-markdown'
+on_ft = ['markdown']
+
+[[plugins]]
+repo  = 'google/vim-ft-go'
+on_ft = ['go']
+
+[[plugins]]
+repo  = 'vim-jp/vim-go-extra'
+on_ft = ['go']
+
+[[plugins]]
+repo  = 'pangloss/vim-javascript'
+hook_post_update = '''
+  "set javascript_enable_domhtmlcss=1
+  set regexpengine=1
+'''
+on_ft = ['javascript']
+
+[[plugins]] # toml syntax
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]]
+repo  = 'elzr/vim-json'
+if    = '''! has('kaoriya')'''
+on_ft = ['json']
+
+

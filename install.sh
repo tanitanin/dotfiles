@@ -64,10 +64,12 @@ dotfiles_os() {
 }
 
 dotfiles_install() {
-	for dot in $copy_dst/.* $copy_dst/$OS/.*; do
+	[ ! -d $copy_dst/backup ] && mkdir -p $copy_dst/backup
+	for dot in $copy_dst/.* $copy_dst/$OS/.* ; do
 		_name=`basename $dot`
 		[ "$_name" == "." ] && continue
 		[ "$_name" == ".." ] && continue
+		[ "$_name" == ".*" ] && continue
 		[ "$_name" == ".git" ] && continue
 		[ "$_name" == ".gitignore" ] && continue
 		[ "$_name" == ".gitmodules" ] && continue

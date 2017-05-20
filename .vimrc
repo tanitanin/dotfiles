@@ -8,8 +8,9 @@ endif
 set encoding=utf8
 set browsedir=buffer
 
-if !isdirectory('~/.vim/backup')
-  call mkdir('~/.vim/backup','p')
+let s:backup_dir = expand('~/.vim/backup')
+if !isdirectory(s:backup_dir)
+  call mkdir(s:backup_dir,'p')
 endif
 
 set backupdir=~/.vim/backup

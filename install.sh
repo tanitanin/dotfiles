@@ -48,15 +48,16 @@ dotfiles_link() {
 	fi
 }
 
-dotfiles_os() {
-	name=`uname -s`
-	if [ "$name" == 'Darwin' ]; then
+dotfiles_distinguish_os() {
+	name_s=`uname -s`
+    name_o=`uname -o`
+	if [ "$name_s" == 'Darwin' ]; then
 		OS='Mac'
-	elif [ "$name" == 'Linux' ]; then
+	elif [ "$name_s" == 'Linux' ]; then
 		OS='Linux'
-	elif [ "$name" == 'CYGWIN_NT' ]; then
+	elif [ "$name_o" == 'Cygwin' ]; then
 		OS='Cygwin'
-	elif [ "$name" == 'MINGW' ]; then
+	elif [ "$name_o" == 'MINGW' ]; then
 		OS='MinGW'
 	else
 		fail "Your platform ($name) is not supported."
@@ -87,6 +88,7 @@ dotfiles_install() {
 dotfiles_main() {
 	dotfiles_check
 	dotfiles_init
+	dotfiles_distinguish_os
 	dotfiles_install
 	#dotfiles_update
 }

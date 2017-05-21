@@ -29,7 +29,7 @@ dotfiles_init() {
   [ -d $copy_dst ] || fail "Cannot copy from $git_source"
 }
 
-dotfiles_udpate() {
+dotfiles_update() {
   if [ $update_flg ]; then
     log "Run update."
     if [ -d $copy_dst/.git ]; then

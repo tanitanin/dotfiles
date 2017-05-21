@@ -61,6 +61,11 @@ dotfiles_update_link() {
 
     [ "$dot" == "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
 
+    if [ -h ~/$_name ]; then
+      log "delete symbolic link ~/$_name"
+      rm -rf ~/$_name
+    fi
+
     if [ -e ~/$_name ]; then
       log "move $_name to $copy_dst/backup"
       mv -f ~/$_name $copy_dst/backup/$_name

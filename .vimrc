@@ -124,12 +124,6 @@ function! MyMode()
 endfunction
 """ lightline.vim setting end -------------------------------
 
-""" unite.vim setting
-let g:unite_enable_start_insert=1
-noremap fo :UniteWithBufferDir -buffer-name=files file file/new<CR>
-noremap fy :Unite history/yank<CR>
-noremap fp :Unite file_mru buffer<CR>
-
 """ filetype mapping
 au BufRead,BufNewFile *.md set filetype=markdown
 

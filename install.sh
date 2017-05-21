@@ -29,19 +29,15 @@ dotfiles_init() {
   [ -d $copy_dst ] || fail "Cannot copy from $git_source"
 }
 
-dotfiles_update() {
-  if [ $update_flg ]; then
-    log "Run update."
-    if [ -d $copy_dst/.git ]; then
-      cd $copy_dst && git pull -f --recurse-submodules
-    elif [ -d $copy_dst ]; then
-      fail ".dotfiles exists but .git is not found."
-    else
-      fail ".dotfiles does not exist. Please install dotfiles."
-    fi
-  else
-    log "Update is skip."
-  fi
+dotfiles_check_install() {
+  _name=$1
+  [ "$_name" == "." ] && return 1
+  [ "$_name" == ".." ] && return 1
+  [ "$_name" == ".*" ] && return 1
+  [ "$_name" == ".git" ] && return 1
+  [ "$_name" == ".gitignore" ] && return 1
+  [ "$_name" == ".gitmodules" ] && return 1
+  return 0
 }
 
 dotfiles_link() {
@@ -54,6 +50,38 @@ dotfiles_link() {
   else
     log "link $_src -> $_dst"
     ln -s $_src $_dst
+  fi
+}
+
+dotfiles_update_link() {
+  for dot in $copy_dst/.* $copy_dst/$OS/.* ; do
+     _name=`basename $dot`
+    dotfiles_check_install $_name
+    [ $? -ne 0 ] && continue
+
+    [ "$dot" == "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
+
+    if [ -e ~/$_name ]; then
+      log "move $_name to $copy_dst/backup"
+      mv -f ~/$_name $copy_dst/backup/$_name
+    fi
+    dotfiles_link $dot ~/$_name
+  done
+}
+
+dotfiles_update() {
+  if [ $update_flg ]; then
+    log "Run update."
+    if [ -d $copy_dst/.git ]; then
+      cd $copy_dst && git pull -f --recurse-submodules
+      dotfiles_update_link
+    elif [ -d $copy_dst ]; then
+      fail ".dotfiles exists but .git is not found."
+    else
+      fail ".dotfiles does not exist. Please install dotfiles."
+    fi
+  else
+    log "Update is skip."
   fi
 }
 
@@ -71,17 +99,6 @@ dotfiles_distinguish_os() {
   else
     fail "Your platform ($name) is not supported."
   fi
-}
-
-dotfiles_check_install() {
-  _name=$1
-  [ "$_name" == "." ] && return 1
-  [ "$_name" == ".." ] && return 1
-  [ "$_name" == ".*" ] && return 1
-  [ "$_name" == ".git" ] && return 1
-  [ "$_name" == ".gitignore" ] && return 1
-  [ "$_name" == ".gitmodules" ] && return 1
-  return 0
 }
 
 dotfiles_install() {

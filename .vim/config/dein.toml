@@ -124,17 +124,20 @@ repo = 'vim-airline/vim-airline-themes' # vim-airlineの依存
 #------------------------------------------------------------------------------
 
 # カラースキーマ関係
-[[plugins]]
+#[[plugins]]
 repo =  'flazz/vim-colorschemes'
+hook_add = '''
+  au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
 
 [[plugins]]
-repo = 'w0ng/vim-hybrid'
-hook_add = '''
-  set background=dark
-  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
-  " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
-  au MyAutoCmd VimEnter * nested colorscheme hybrid
-'''
+#repo = 'w0ng/vim-hybrid'
+#hook_add = '''
+#  set background=dark
+#  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
+#  " 但し Colorscheme イベントの発生が抑制されないよう nented を付ける。
+#  au MyAutoCmd VimEnter * nested colorscheme hybrid
+#'''
 
 #[[plugins]]
 #repo =  'altercation/vim-colors-solarized'

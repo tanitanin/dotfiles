@@ -127,10 +127,11 @@ repo = 'vim-airline/vim-airline-themes' # vim-airlineの依存
 #[[plugins]]
 repo =  'flazz/vim-colorschemes'
 hook_add = '''
-  au MyAutoCmd VimEnter * nested colorscheme molokai
+  syntax enable
+  au MyAutoCmd VimEnter * nested colorscheme monokai
 '''
 
-[[plugins]]
+#[[plugins]]
 #repo = 'w0ng/vim-hybrid'
 #hook_add = '''
 #  set background=dark
@@ -150,8 +151,15 @@ hook_add = '''
 #[[plugins]]
 #repo =  'nanotech/jellybeans.vim'
 #hook_post_update = '''
-#  "syntax enable
-#  "colorscheme jellybeans
+#  syntax enable
+#  au MyAutoCmd VimEnter * nested colorscheme jellybeans
+#'''
+
+#[[plugins]]
+#repo =  'jonathanfilip/vim-lucius'
+#hook_post_update = '''
+#  syntax enable
+#  au MyAutoCmd VimEnter * nested colorscheme lucious
 #'''
 
 

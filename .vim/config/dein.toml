@@ -1,5 +1,4 @@
 #------------------------------------------------------------------------------
-
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
@@ -91,28 +90,28 @@ hook_post_update = '''
 [[plugins]]
 repo =  'Shougo/vimshell'
 
-[[plugins]]
-repo =  'itchyny/lightline.vim'
-hook_post_update = '''
-  set laststatus=2
-  let g:lightline = {
-        \ 'colorscheme': 'wombat',
-        \ 'mode_map': {'c': 'NORMAL'},
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
-        \ },
-        \ 'component_function': {
-        \   'modified': 'MyModified',
-        \   'readonly': 'MyReadonly',
-        \   'fugitive': 'MyFugitive',
-        \   'filename': 'MyFilename',
-        \   'fileformat': 'MyFileformat',
-        \   'filetype': 'MyFiletype',
-        \   'fileencoding': 'MyFileencoding',
-        \   'mode': 'MyMode'
-        \ }
-        \ }
-'''
+#[[plugins]]
+#repo =  'itchyny/lightline.vim'
+#hook_post_update = '''
+#  set laststatus=2
+#  let g:lightline = {
+#        \ 'colorscheme': 'wombat',
+#        \ 'mode_map': {'c': 'NORMAL'},
+#        \ 'active': {
+#        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ]
+#        \ },
+#        \ 'component_function': {
+#        \   'modified': 'MyModified',
+#        \   'readonly': 'MyReadonly',
+#        \   'fugitive': 'MyFugitive',
+#        \   'filename': 'MyFilename',
+#        \   'fileformat': 'MyFileformat',
+#        \   'filetype': 'MyFiletype',
+#        \   'fileencoding': 'MyFileencoding',
+#        \   'mode': 'MyMode'
+#        \ }
+#        \ }
+#'''
 
 [[plugins]]
 repo    = 'vim-airline/vim-airline'

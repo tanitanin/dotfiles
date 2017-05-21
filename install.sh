@@ -7,90 +7,110 @@ log()  { printf "%b\n" "$*"; }
 fail() { log "\nERROR: $*\n" ; exit 1 ; }
 
 dotfiles_check() {
-	log "Checking required items..."
-	_flg=false
-	[ -d $copy_dst ] && fail ".dotfiles already exists. If udpate, use update.sh"
+  log "Checking required items..."
+  _flg=false
+  update_flg=false
+  if [ -d $copy_dst ]; then
+    log ".dotfiles already exists."
+    update_flg=true
+  fi
 
-	#if ! type -p wget > /dev/null 2>&1 ; then
-	#       	fail "wget doesn't exist."
-	#fi
-	if ! type -p git > /dev/null 2>&1 ; then
-	       	fail "git doesn't exist. prease install git."
-	fi
+  #if ! type -p wget > /dev/null 2>&1 ; then
+  #         fail "wget doesn't exist."
+  #fi
+  if ! type -p git > /dev/null 2>&1 ; then
+    fail "git doesn't exist. prease install git."
+  fi
 }
 
 dotfiles_init() {
-	log "Copy files from $git_source -> $copy_dst"
-	git clone $git_source $copy_dst --recurse-submodules
-	[ -d $copy_dst ] || fail "Cannot copy from $git_source"
+  log "Copy files from $git_source -> $copy_dst"
+  git clone $git_source $copy_dst --recurse-submodules
+  [ -d $copy_dst ] || fail "Cannot copy from $git_source"
 }
 
 dotfiles_udpate() {
-	if [ -d $copy_dst/.git ]; then
-		cd $copy_dst && git pull -f --recurse-submodules
-	elif [ -d $copy_dst ]; then
-		fail ".dotfiles exists but .git is not found."
-	else
-		fail ".dotfiles does not exist. Please install dotfiles."
-	fi
+  if [ $update_flg ]; then
+    log "Run update."
+    if [ -d $copy_dst/.git ]; then
+      cd $copy_dst && git pull -f --recurse-submodules
+    elif [ -d $copy_dst ]; then
+      fail ".dotfiles exists but .git is not found."
+    else
+      fail ".dotfiles does not exist. Please install dotfiles."
+    fi
+  else
+    log "Update is skip."
+  fi
 }
 
 dotfiles_link() {
-	_src=$1
-	_dst=$2
-	if [ -e $_dst ]; then
-		log "$_dst already exists. move backup. link $_src -> $_dst."
-		mv -f $_dst $_dst.backup
-		ln -s $_src $_dst
-	else
-		log "link $_src -> $_dst"
-		ln -s $_src $_dst
-	fi
+  _src=$1
+  _dst=$2
+  if [ -e $_dst ]; then
+    log "$_dst already exists. move backup. link $_src -> $_dst."
+    mv -f $_dst $_dst.backup
+    ln -s $_src $_dst
+  else
+    log "link $_src -> $_dst"
+    ln -s $_src $_dst
+  fi
 }
 
 dotfiles_distinguish_os() {
-	name_s=`uname -s`
-    name_o=`uname -o`
-	if [ "$name_s" == 'Darwin' ]; then
-		OS='Mac'
-	elif [ "$name_s" == 'Linux' ]; then
-		OS='Linux'
-	elif [ "$name_o" == 'Cygwin' ]; then
-		OS='Cygwin'
-	elif [ "$name_o" == 'MINGW' ]; then
-		OS='MinGW'
-	else
-		fail "Your platform ($name) is not supported."
-	fi
+  name_s=`uname -s`
+  name_o=`uname -o`
+  if [ "$name_s" == 'Darwin' ]; then
+    OS='Mac'
+  elif [ "$name_s" == 'Linux' ]; then
+    OS='Linux'
+  elif [ "$name_o" == 'Cygwin' ]; then
+    OS='Cygwin'
+  elif [ "$name_o" == 'MINGW' ]; then
+    OS='MinGW'
+  else
+    fail "Your platform ($name) is not supported."
+  fi
+}
+
+dotfiles_check_install() {
+  _name=$1
+  [ "$_name" == "." ] && return 1
+  [ "$_name" == ".." ] && return 1
+  [ "$_name" == ".*" ] && return 1
+  [ "$_name" == ".git" ] && return 1
+  [ "$_name" == ".gitignore" ] && return 1
+  [ "$_name" == ".gitmodules" ] && return 1
+  return 0
 }
 
 dotfiles_install() {
-	[ ! -d $copy_dst/backup ] && mkdir -p $copy_dst/backup
-	for dot in $copy_dst/.* $copy_dst/$OS/.* ; do
-		_name=`basename $dot`
-		[ "$_name" == "." ] && continue
-		[ "$_name" == ".." ] && continue
-		[ "$_name" == ".*" ] && continue
-		[ "$_name" == ".git" ] && continue
-		[ "$_name" == ".gitignore" ] && continue
-		[ "$_name" == ".gitmodules" ] && continue
+  if [ ! $update_flg ]; then
+    [ ! -d $copy_dst/backup ] && mkdir -p $copy_dst/backup
+    for dot in $copy_dst/.* $copy_dst/$OS/.* ; do
+      _name=`basename $dot`
+      dotfiles_check_isntall $_name
+      [ $? -ne 0 ] && continue
 
-		[ "$dot" == "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
+      [ "$dot" == "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
 
-		if [ -e ~/$_name ]; then
-			log "move $_name to $copy_dst/backup"
-			mv -f ~/$_name $copy_dst/backup/$_name
-		fi
-		dotfiles_link $dot ~/$_name
-	done
+      if [ -e ~/$_name ]; then
+        log "move $_name to $copy_dst/backup"
+        mv -f ~/$_name $copy_dst/backup/$_name
+      fi
+      dotfiles_link $dot ~/$_name
+    done
+  else
+    log "Skip install."
+  fi
 }
 
 dotfiles_main() {
-	dotfiles_check
-	dotfiles_init
-	dotfiles_distinguish_os
-	dotfiles_install
-	#dotfiles_update
+  dotfiles_check
+  dotfiles_init
+  dotfiles_distinguish_os
+  dotfiles_install
+  dotfiles_update
 }
 
 dotfiles_main $@

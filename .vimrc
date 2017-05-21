@@ -78,6 +78,7 @@ set tabstop=4
 set whichwrap=b,s,h,l,<,>,[,]
 set nowrapscan
 
+set laststatus=2
 
 function! MyModified()
   return &ft =~ 'help\|vimfiler\|gundo' ? '' : &modified ? '+' : &modifiable ? '' : '-'

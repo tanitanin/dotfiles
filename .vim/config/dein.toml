@@ -122,6 +122,9 @@ repo =  'Shougo/vimshell'
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
+hook_post_update = '''
+  set laststatus=2
+'''
 
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes' # vim-airlineの依存

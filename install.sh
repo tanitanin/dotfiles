@@ -59,7 +59,7 @@ dotfiles_update_link() {
     dotfiles_check_install $_name
     [ $? -ne 0 ] && continue
 
-    [ "$dot" = "$copy_dst/$_name" ] && [ -e $copy_dst/$OS/$_name ] && continue
+    [ "$dot" = "$copy_dst/$_name" ] && [ -e "$copy_dst/$OS/$_name" ] && continue
 
     if [ -h ~/$_name ]; then
       log "delete symbolic link ~/$_name"

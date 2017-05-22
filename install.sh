@@ -93,6 +93,7 @@ dotfiles_update() {
 dotfiles_distinguish_os() {
   name_s=`uname -s`
   name_o=`uname -o`
+  OS='unknown'
   if [ "$name_s" == 'Darwin' ]; then
     OS='Mac'
   elif [ "$name_s" == 'Linux' ]; then
@@ -101,8 +102,11 @@ dotfiles_distinguish_os() {
     OS='Cygwin'
   elif [ "$name_o" == 'MINGW' ]; then
     OS='MinGW'
+  fi
+  if [ $OS == 'unknown' ]; then
+    fail "Your platform (`uname -a`) is not supported."
   else
-    fail "Your platform ($name) is not supported."
+    log "OS is $OS"
   fi
 }
 

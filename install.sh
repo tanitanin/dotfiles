@@ -31,12 +31,12 @@ dotfiles_init() {
 
 dotfiles_check_install() {
   _name=$1
-  [ "$_name" == "." ] && return 1
-  [ "$_name" == ".." ] && return 1
-  [ "$_name" == ".*" ] && return 1
-  [ "$_name" == ".git" ] && return 1
-  [ "$_name" == ".gitignore" ] && return 1
-  [ "$_name" == ".gitmodules" ] && return 1
+  [ "$_name" = "." ] && return 1
+  [ "$_name" = ".." ] && return 1
+  [ "$_name" = ".*" ] && return 1
+  [ "$_name" = ".git" ] && return 1
+  [ "$_name" = ".gitignore" ] && return 1
+  [ "$_name" = ".gitmodules" ] && return 1
   return 0
 }
 
@@ -94,16 +94,16 @@ dotfiles_distinguish_os() {
   name_s=`uname -s`
   name_o=`uname -o`
   OS='unknown'
-  if [ "$name_s" == 'Darwin' ]; then
+  if [ "$name_s" = 'Darwin' ]; then
     OS='Mac'
-  elif [ "$name_s" == 'Linux' ]; then
+  elif [ "$name_s" = 'Linux' ]; then
     OS='Linux'
-  elif [ "$name_o" == 'Cygwin' ]; then
+  elif [ "$name_o" = 'Cygwin' ]; then
     OS='Cygwin'
-  elif [ "$name_o" == 'MINGW' ]; then
+  elif [ "$name_o" = 'MINGW' ]; then
     OS='MinGW'
   fi
-  if [ $OS == 'unknown' ]; then
+  if [ $OS = 'unknown' ]; then
     fail "Your platform (`uname -a`) is not supported."
   else
     log "OS is $OS"
@@ -118,7 +118,7 @@ dotfiles_install() {
       dotfiles_check_isntall $_name
       [ $? -ne 0 ] && continue
 
-      [ "$dot" == "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
+      [ "$dot" = "$copy_dst/$_name" -a -e $copy_dst/$OS/$_name ] && continue
 
       if [ -e ~/$_name ]; then
         log "move $_name to $copy_dst/backup"

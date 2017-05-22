@@ -18,7 +18,7 @@ dotfiles_check() {
   #if ! type -p wget > /dev/null 2>&1 ; then
   #         fail "wget doesn't exist."
   #fi
-  if [ `type -p git > /dev/null 2>&1` ] ; then
+  if [ `type -p git > /dev/null 2>&1` -ne 0 ] ; then
     fail "git doesn't exist. prease install git."
   fi
 }

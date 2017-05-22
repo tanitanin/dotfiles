@@ -136,7 +136,7 @@ repo = 'vim-airline/vim-airline-themes' # vim-airlineの依存
 repo =  'flazz/vim-colorschemes'
 hook_add = '''
   syntax enable
-  au MyAutoCmd VimEnter * nested colorscheme monokai
+  au MyAutoCmd VimEnter * nested colorscheme Monokai
 '''
 
 #[[plugins]]

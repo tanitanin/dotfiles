@@ -53,12 +53,56 @@ Config.window.background_align_x = Align.Near;
 Config.window.background_align_y = Align.Near;
 Config.window.alpha_text_border = 0x44;
 Config.window.alpha_back_colorN = 0xaa;
-Config.window.color_foreground = 0xFFFFFFFF;
-Config.window.color_background = 0xff333333;
 Config.window.color_selection  = 0x660000ff;
 Config.window.color_cursor     = 0x00aa00;
 Config.window.color_imecursor  = 0xaa0000;
 
+// Hybrid
+/*
+Config.window.color_foreground = 0xC5C8C6;
+Config.window.color_background = 0x1D1F21;
+Config.window.color_color0 = 0x282A2E;
+Config.window.color_color0 = 0x000000;
+Config.window.color_color8 = 0x373B41;
+Config.window.color_color1 = 0xA54242;
+Config.window.color_color9 = 0xCC6666;
+Config.window.color_color2 = 0x8C9440;
+Config.window.color_color10 = 0xB5BD68;
+Config.window.color_color3 = 0xDE935F;
+Config.window.color_color11 = 0xF0C674;
+Config.window.color_color4 = 0x5F819D;
+Config.window.color_color12 = 0x81A2BE;
+Config.window.color_color5 = 0x85678F;
+Config.window.color_color13 = 0xB294BB;
+Config.window.color_color6 = 0x5E8D87;
+Config.window.color_color14 = 0x8ABEB7;
+Config.window.color_color7 = 0x707880;
+Config.window.color_color15 = 0xC5C8C6;
+*/
+
+// Monokai
+Config.window.color_foreground = 0xFFFFFFFF;
+Config.window.color_background = 0xff333333;
+Config.window.color_color0 = 0x1B1D1E;
+Config.window.color_color1 = 0xF92672;
+Config.window.color_color2 = 0x82B414;
+Config.window.color_color3 = 0xFD971F;
+Config.window.color_color4 = 0x56C2D6;
+Config.window.color_color5 = 0x8C54FE;
+Config.window.color_color6 = 0x465457;
+Config.window.color_color7 = 0xCCCCC6;
+Config.window.color_color8 = 0x505354;
+Config.window.color_color9 = 0xFF5995;
+Config.window.color_color10 = 0xB6E354;
+Config.window.color_color11 = 0xFEED6C;
+Config.window.color_color12 = 0x8CEDFF;
+Config.window.color_color13 = 0x9E6FFE;
+Config.window.color_color14 = 0x899CA1;
+Config.window.color_color15 = 0xF8F8F2;
+
+/*
+Config.window.color_foreground = 0xFFFFFFFF;
+Config.window.color_background = 0xff333333;
 Config.window.color_color0 = 0x000000;
 Config.window.color_color1 = 0xcd0000;
 Config.window.color_color2 = 0x00cd00;
@@ -75,4 +119,5 @@ Config.window.color_color12 = 0x0000ff;
 Config.window.color_color13 = 0xff00ff;
 Config.window.color_color14 = 0x00ffff;
 Config.window.color_color15 = 0xffffff;
+*/
 

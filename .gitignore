@@ -5,4 +5,5 @@ backup
 
 # Submodule
 .vim/bundle/*
+.vim/.cache
 .netrwhist

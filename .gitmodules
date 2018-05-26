@@ -1,0 +1,3 @@
+[submodule "Cygwin/cmd-colors-monokai"]
+	path = Cygwin/cmd-colors-monokai
+	url = https://github.com/reideast/cmd-colors-monokai

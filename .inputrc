@@ -72,3 +72,4 @@
   # a history expansion in the line
   #Space: magic-space
 #$endif
+set bell-style none

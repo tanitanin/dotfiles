@@ -128,3 +128,4 @@ endfunction
 """ filetype mapping
 au BufRead,BufNewFile *.md set filetype=markdown
 
+set visualbell t_vb=

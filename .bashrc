@@ -79,10 +79,7 @@
 
 # git branch
 if type __git_ps1 > /dev/null 2>&1 ; then
-  git_prompt="$(__git_ps1 '[%s]')"
   GIT_PS1_SHOWDIRTYSTATE=true
-else
-  git_prompt=
 fi
 
 # set variable identifying the chroot you work in (used in the prompt below)
@@ -112,9 +109,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[\033[31m\]$git_prompt\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] \[\033[31m\]$(__git_ps1 [%s])\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w $git_prompt$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w $(__git_ps1 [%s])$ '
 fi
 unset color_prompt force_color_prompt
 

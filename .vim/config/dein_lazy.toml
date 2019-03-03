@@ -1,4 +1,6 @@
 #------------------------------------------------------------------------------
+[[plugins]] # C++ 補完
+repo = 'justmao945/vim-clang'
 
 [[plugins]]
 repo  = 'derekwyatt/vim-scala'

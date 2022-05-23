@@ -259,3 +259,6 @@ export NVM_DIR="$HOME/.nvm"
 # pip local bin path
 export PATH=~/.local/bin:$PATH
 
+# yarn global bin path
+export PATH=$(yarn global bin):$PATH
+

@@ -192,14 +192,12 @@ unset color_prompt force_color_prompt
 DISABLE_AUTO_TITLE=true
 case "$TERM" in
 xterm*|rxvt*)
-    precmd_change_title () { print -Pn "\e]0;${debian_chroot:+($debian_chroot)}%n@%m:%~\a" }
+    PS1_TITLE=$'\e]0;${debian_chroot:+($debian_chroot)}%n@%m:%~\a'
+    PS1="${PS1_TITLE}${PS1}"
     ;;
 *)
-    precmd_change_title () {}
     ;;
 esac
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd precmd_change_title
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'

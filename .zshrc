@@ -146,7 +146,7 @@ esac
 
 # set prompt
 setopt prompt_subst
-export PROMPT='%n@%m:%~ %K{118}%f%F{250}%f%F{016}%{$(__git_ps1 "[%s]")%f%k%F{118}%f$'
+export PS1='%n@%m:%~ %K{118}%f%F{250}%f%F{016}%{$(__git_ps1 "[%s]")%f%k%F{118}%f$'
 
 #------------------------------------------------------------------------------
 # Path settings
@@ -163,12 +163,16 @@ export NVM_DIR="$HOME/.nvm"
 
 # yarn global bin path
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export PATH=$(yarn global bin):$PATH
+if !! [ which yarn &> /dev/null ]; then
+  export PATH=$(yarn global bin):$PATH
+fi
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if !! [ which pyenv &> /dev/null ]; then
+  command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+  eval "$(pyenv init -)"
+fi
 
 #------------------------------------------------------------------------------
 # Append from .bashrc
